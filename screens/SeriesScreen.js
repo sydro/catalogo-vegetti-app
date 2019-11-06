@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, FlatList, View, Image, TouchableOpacity } from 'react-native';
 import { Row, Column as Col} from 'react-native-responsive-grid';
-import cio from 'cheerio-without-node-native';
+import cio from '../libs/cheerio';
 
 class Item extends React.PureComponent {
 
