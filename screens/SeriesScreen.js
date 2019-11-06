@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, FlatList, View, Image, TouchableOpacity } from 'react-native';
 import { Row, Column as Col} from 'react-native-responsive-grid';
 import cio from '../libs/cheerio';
+import Filter from '../components/Filter'
 
 class Item extends React.PureComponent {
 
@@ -45,7 +46,8 @@ class SeriesScreen extends React.Component {
     this.state = {
       loading: true,
       editorUri: '',
-      items: []
+      items: [],
+      allItems: []
     }
   }
 
@@ -63,12 +65,22 @@ class SeriesScreen extends React.Component {
           uri: 'https:' + uri,
           img: $(this).find('img').attr('src')}
       })
-      this.setState({ editorUri, items, loading: false })
+      this.setState({ editorUri, items, allItems: items, loading: false })
     } else {
       this.setState({ loading: false })
     }
   }
 
+  filterItems = (text) => {
+    let items = []
+    if (text !== '') {
+      let check = text.toLowerCase()
+      items = this.state.allItems.filter( item => item.title.toLowerCase().indexOf(check) !== -1 )
+    } else {
+      items = this.state.allItems
+    }
+    this.setState({ items })
+  }
   componentDidMount = () => {
     this.fetchItems()
   }
@@ -90,11 +102,14 @@ class SeriesScreen extends React.Component {
         <Text style={styles.title}>{ editorTitle }</Text>
         { this.state.loading ?
           <View style={styles.contentContainerStyle}><Image style={styles.loading} source={require('../assets/images/loading.gif')} /></View> :
-          <FlatList
-            data={this.state.items}
-            renderItem={({ item }) => <Item item={item} onPress={() => navigate('Volumes', { serieUri: item.uri, serieTitle: item.title.split('(')[0]})} />}
-            keyExtractor={item => item.id}
-            />
+          <View>
+            <Filter onChange={this.filterItems}/>
+            <FlatList
+              data={this.state.items}
+              renderItem={({ item }) => <Item item={item} onPress={() => navigate('Volumes', { serieUri: item.uri, serieTitle: item.title.split('(')[0]})} />}
+              keyExtractor={item => item.id}
+              />
+          </View>
         }
       </ScrollView>
     )

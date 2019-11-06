@@ -1,34 +1,35 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, FlatList, View, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, FlatList, View, Image, TouchableOpacity, TextInput } from 'react-native';
 import { Row, Column as Col} from 'react-native-responsive-grid';
 import cio from '../libs/cheerio';
+import Filter from '../components/Filter'
 
 class Item extends React.PureComponent {
 
   render() {
     if (this.props.item.title !== '') {
-    return (
-      <View style={styles.item}>
-        <TouchableOpacity onPress={this.props.onPress}>
-          <Row>
-            <Col style={{padding: 5, alignSelf:'center'}} size={20}>
-              <Image
-                style={{width: 50, height: 75 }}
-                source={{ uri: 'http:' + this.props.item.img }}
-              />
-            </Col>
-            <Col style={{padding: 5, alignSelf:'center'}} size={80}>
-              <Text style={styles.title}>{this.props.item.title}</Text>
-              <Text style={styles.subtitle}>{this.props.item.author}</Text>
-              <Text style={styles.subtitle}>Numero: {this.props.item.numero}</Text>
-            </Col>
-          </Row>
-        </TouchableOpacity>
-      </View>
-    )
-  } else {
-    return null
-  }
+      return (
+        <View style={styles.item}>
+          <TouchableOpacity onPress={this.props.onPress}>
+            <Row>
+              <Col style={{padding: 5, alignSelf:'center'}} size={20}>
+                <Image
+                  style={{width: 50, height: 75 }}
+                  source={{ uri: 'http:' + this.props.item.img }}
+                />
+              </Col>
+              <Col style={{padding: 5, alignSelf:'center'}} size={80}>
+                <Text style={styles.title}>{this.props.item.title}</Text>
+                <Text style={styles.subtitle}>{this.props.item.author}</Text>
+                {this.props.item.numero !== '-' && <Text style={styles.subtitle}>Numero: {this.props.item.numero}</Text>}
+              </Col>
+            </Row>
+          </TouchableOpacity>
+        </View>
+      )
+    } else {
+      return null
+    }
   }
 }
 
@@ -49,7 +50,8 @@ class VolumesScreen extends React.Component {
     this.state = {
       loading: true,
       serieUri: '',
-      items: []
+      items: [],
+      allItems: []
     }
   }
 
@@ -68,10 +70,23 @@ class VolumesScreen extends React.Component {
             uri: 'https:' + $(this).find('h4').find('a').attr('href'),
             img: $(this).find('img').attr('src')}
       })
-      this.setState({ serieUri, items, loading: false })
+      this.setState({ serieUri, items, allItems: items, loading: false })
     } else {
       this.setState({ loading: false })
     }
+  }
+
+  filterItems = (text) => {
+    let items = []
+    if (text !== '') {
+      let check = text.toLowerCase()
+      items = this.state.allItems.filter( item =>
+        item.title.toLowerCase().indexOf(check) !== -1 ||
+        item.author.toLowerCase().indexOf(check) !== -1)
+    } else {
+      items = this.state.allItems
+    }
+    this.setState({ items })
   }
 
   componentDidMount = () => {
@@ -91,14 +106,17 @@ class VolumesScreen extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.title}>{ serieTitle }</Text>
+        <Text style={styles.title}>{ serieTitle !== '' ? serieTitle : '---' }</Text>
         { this.state.loading ?
           <View style={styles.contentContainerStyle}><Image style={styles.loading} source={require('../assets/images/loading.gif')} /></View> :
-          <FlatList
-            data={this.state.items}
-            renderItem={({ item }) => <Item item={item} />}
-            keyExtractor={item => item.id}
-            />
+          <View>
+            <Filter onChange={this.filterItems}/>
+            <FlatList
+              data={this.state.items}
+              renderItem={({ item }) => <Item item={item} />}
+              keyExtractor={item => item.id}
+              />
+          </View>
         }
       </ScrollView>
     )
