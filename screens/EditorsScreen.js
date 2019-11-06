@@ -20,6 +20,13 @@ class Item extends React.PureComponent {
 class EditorsScreen extends React.Component {
   static navigationOptions = {
     title: 'Editori e collane',
+    headerStyle: {
+      backgroundColor: '#446fb5',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   }
 
   constructor(props) {
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   item: {
-    backgroundColor: '#5fba7d',
+    backgroundColor: '#9be8b5',
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,

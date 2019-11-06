@@ -20,6 +20,7 @@ class Item extends React.PureComponent {
             <Col style={{padding: 5, alignSelf:'center'}} size={80}>
               <Text style={styles.title}>{this.props.item.title}</Text>
               <Text style={styles.subtitle}>{this.props.item.author}</Text>
+              <Text style={styles.subtitle}>Numero: {this.props.item.numero}</Text>
             </Col>
           </Row>
         </TouchableOpacity>
@@ -34,6 +35,13 @@ class Item extends React.PureComponent {
 class VolumesScreen extends React.Component {
   static navigationOptions = {
     title: 'Volumi',
+    headerStyle: {
+      backgroundColor: '#446fb5',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   }
 
   constructor(props) {
@@ -54,6 +62,7 @@ class VolumesScreen extends React.Component {
       $('.lista-volumi-collana li').each(function(i, item) {
           items[i] = {
             id: typeof $(this).attr('id') !== 'undefined' ? $(this).attr('id') : Math.round(Math.random() * 10000).toString(),
+            numero: typeof $(this).find('.numero') !== 'undefined' ? $(this).find('.numero').text() : '-',
             title: $(this).find('h4').find('a').text(),
             author: $(this).find('h4').find('.autore').text(),
             uri: 'https:' + $(this).find('h4').find('a').attr('href'),
@@ -108,14 +117,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   item: {
-    backgroundColor: '#5fba7f',
+    backgroundColor: '#d4e3fb',
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,
     borderRadius: 5,
   },
   title: {
-    fontSize: 17,
+    fontSize: 18,
     color: 'black',
     textAlign: 'center',
     fontWeight: 'bold',

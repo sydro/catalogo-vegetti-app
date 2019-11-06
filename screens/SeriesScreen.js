@@ -31,6 +31,13 @@ class Item extends React.PureComponent {
 class SeriesScreen extends React.Component {
   static navigationOptions = {
     title: 'Collane',
+    headerStyle: {
+      backgroundColor: '#446fb5',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   }
 
   constructor(props) {
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   item: {
-    backgroundColor: '#5fba7f',
+    backgroundColor: '#d4e3fb',
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,

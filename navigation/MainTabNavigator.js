@@ -4,7 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import AboutScreen from '../screens/AboutScreen';
 import EditorsScreen from '../screens/EditorsScreen';
 import SeriesScreen from '../screens/SeriesScreen';
 import VolumesScreen from '../screens/VolumesScreen';
@@ -28,8 +28,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-home{focused ? '' : '-outline'}`
+          : 'md-home'
       }
     />
   ),
@@ -37,21 +37,26 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const AboutStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    About: AboutScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+AboutStack.navigationOptions = {
+  tabBarLabel: 'About',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused}
+      name={
+            Platform.OS === 'ios'
+              ? `ios-information-circle${focused ? '' : '-outline'}`
+              : 'md-information-circle'
+          } />
   ),
 };
 
-LinksStack.path = '';
+AboutStack.path = '';
 
 const EditorsStack = createStackNavigator(
   {
@@ -90,7 +95,7 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   EditorsStack,
   SeriesStack,
-  LinksStack,
+  AboutStack,
 });
 
 tabNavigator.path = '';
