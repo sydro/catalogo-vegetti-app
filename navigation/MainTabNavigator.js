@@ -8,6 +8,7 @@ import AboutScreen from '../screens/AboutScreen';
 import EditorsScreen from '../screens/EditorsScreen';
 import SeriesScreen from '../screens/SeriesScreen';
 import VolumesScreen from '../screens/VolumesScreen';
+import BookScreen from '../screens/BookScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -78,6 +79,7 @@ const SeriesStack = createStackNavigator(
   {
     Series: SeriesScreen,
     Volumes: VolumesScreen,
+    Book: BookScreen,
   },
   config
 );

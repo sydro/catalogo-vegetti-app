@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "Fantascienza.com Catalogo Vegetti",
-    "slug": "catalogo-vegetti",
+    "description": "App Android/Ios del Catalogo Vegetti della letteratura fantastica",
+    "slug": "catalogovegetti",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -24,7 +25,12 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.korulink.catalogovegetti",
       "supportsTablet": true
+    },
+    "android": {
+      "versionCode": 1,
+      "package": "com.korulink.catalogovegetti"
     }
   }
 }

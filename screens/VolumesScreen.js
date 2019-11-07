@@ -103,6 +103,7 @@ class VolumesScreen extends React.Component {
 
   render() {
     let serieTitle = this.props.navigation.getParam('serieTitle', 'Nessuna collana selezionata')
+    const {navigate} = this.props.navigation;
 
     return (
       <ScrollView style={styles.container}>
@@ -113,7 +114,7 @@ class VolumesScreen extends React.Component {
             <Filter onChange={this.filterItems}/>
             <FlatList
               data={this.state.items}
-              renderItem={({ item }) => <Item item={item} />}
+              renderItem={({ item }) => <Item item={item} onPress={() => navigate('Book', { bookUri: item.uri, bookTitle: item.title })}/>}
               keyExtractor={item => item.id}
               />
           </View>
