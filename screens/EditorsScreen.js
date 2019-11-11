@@ -1,9 +1,8 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text, FlatList, View, Image, TouchableOpacity } from 'react-native';
-import cio from '../libs/cheerio';
+import React from 'react'
+import { ScrollView, StyleSheet, Text, FlatList, View, Image, TouchableOpacity } from 'react-native'
+import cio from '../libs/cheerio'
 
 class Item extends React.PureComponent {
-
   render() {
     let title = this.props.item.title.split('(')
     return (
@@ -21,16 +20,16 @@ class EditorsScreen extends React.Component {
   static navigationOptions = {
     title: 'Editori e collane',
     headerStyle: {
-      backgroundColor: '#446fb5',
+      backgroundColor: '#446fb5'
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+      fontWeight: 'bold'
+    }
   }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       items: [],
       loading: true
@@ -42,24 +41,42 @@ class EditorsScreen extends React.Component {
     let $ = cio.load(await test.text())
     let items = []
     $('.elenco-editori dt').each(function(i, item) {
-      items[i] = { title: $(this).text().trim(), id: $(this).attr('id'), uri: 'https:' + $(this).find('a').attr('href')}
+      items[i] = {
+        title: $(this)
+          .text()
+          .trim(),
+        id: $(this).attr('id'),
+        uri:
+          'https:' +
+          $(this)
+            .find('a')
+            .attr('href')
+      }
     })
     this.setState({ items, loading: false })
   }
 
   render() {
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation
 
     return (
       <ScrollView style={styles.container}>
-      { this.state.loading ?
-        <View style={styles.contentContainerStyle}><Image style={styles.loading} source={require('../assets/images/loading.gif')} /></View> :
-        <FlatList
-          data={this.state.items}
-          renderItem={({ item }) => <Item item={item} onPress={() => navigate('Series', { editorUri: item.uri, editorTitle: item.title.split('(')[0]})} />}
-          keyExtractor={item => item.id}
+        {this.state.loading ? (
+          <View style={styles.contentContainerStyle}>
+            <Image style={styles.loading} source={require('../assets/images/loading.gif')} />
+          </View>
+        ) : (
+          <FlatList
+            data={this.state.items}
+            renderItem={({ item }) => (
+              <Item
+                item={item}
+                onPress={() => navigate('Series', { uri: item.uri, title: item.title.split('(')[0] })}
+              />
+            )}
+            keyExtractor={item => item.id}
           />
-       }
+        )}
       </ScrollView>
     )
   }
@@ -70,34 +87,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginBottom: 15,
-    marginTop: 10,
+    marginTop: 10
   },
   contentContainerStyle: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   item: {
     backgroundColor: '#9be8b5',
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 5,
+    borderRadius: 5
   },
   title: {
     fontSize: 17,
     color: 'black',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   subtitle: {
     fontSize: 15,
     color: 'black',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   loading: {
     height: 150,
-    width: 150,
+    width: 150
   }
-});
+})
 
 export default EditorsScreen

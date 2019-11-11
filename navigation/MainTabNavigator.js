@@ -1,105 +1,116 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from 'react'
+import { Platform } from 'react-native'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import AboutScreen from '../screens/AboutScreen';
-import EditorsScreen from '../screens/EditorsScreen';
-import SeriesScreen from '../screens/SeriesScreen';
-import VolumesScreen from '../screens/VolumesScreen';
-import BookScreen from '../screens/BookScreen';
+import TabBarIcon from '../components/TabBarIcon'
+import HomeScreen from '../screens/HomeScreen'
+import AboutScreen from '../screens/AboutScreen'
+import EditorsScreen from '../screens/EditorsScreen'
+import SeriesScreen from '../screens/SeriesScreen'
+import VolumesScreen from '../screens/VolumesScreen'
+import BookScreen from '../screens/BookScreen'
+import SearchScreen from '../screens/SearchScreen'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {},
-});
+  default: {}
+})
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: HomeScreen
   },
   config
-);
+)
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-home{focused ? '' : '-outline'}`
-          : 'md-home'
-      }
-    />
-  ),
-};
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? `ios-home{focused ? '' : '-outline'}` : 'md-home'} />
+  )
+}
 
-HomeStack.path = '';
+HomeStack.path = ''
 
 const AboutStack = createStackNavigator(
   {
-    About: AboutScreen,
+    About: AboutScreen
   },
   config
-);
+)
 
 AboutStack.navigationOptions = {
   tabBarLabel: 'About',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused}
-      name={
-            Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle'
-          } />
-  ),
-};
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle'}
+    />
+  )
+}
 
-AboutStack.path = '';
+AboutStack.path = ''
 
 const EditorsStack = createStackNavigator(
   {
-    Editors: EditorsScreen,
+    Editors: EditorsScreen
   },
   config
-);
+)
 
 EditorsStack.navigationOptions = {
   tabBarLabel: 'Editori',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-book' : 'md-book'} />
-  ),
-};
+  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-book' : 'md-book'} />
+}
 
-EditorsStack.path = '';
+EditorsStack.path = ''
 
 const SeriesStack = createStackNavigator(
   {
     Series: SeriesScreen,
     Volumes: VolumesScreen,
-    Book: BookScreen,
+    Book: BookScreen
   },
   config
-);
+)
 
 SeriesStack.navigationOptions = {
   tabBarLabel: 'Collane',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-albums' : 'md-albums'} />
-  ),
-};
+  )
+}
 
-SeriesStack.path = '';
+SeriesStack.path = ''
+
+const SearchStack = createStackNavigator(
+  {
+    Search: SearchScreen,
+    Editors: EditorsScreen,
+    Volumes: VolumesScreen,
+    Series: SeriesScreen,
+    Book: BookScreen
+  },
+  config
+)
+
+SearchStack.navigationOptions = {
+  tabBarLabel: 'Search',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} />
+  )
+}
+
+SearchStack.path = ''
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   EditorsStack,
   SeriesStack,
-  AboutStack,
-});
+  SearchStack,
+  AboutStack
+})
 
-tabNavigator.path = '';
+tabNavigator.path = ''
 
-export default tabNavigator;
+export default tabNavigator
