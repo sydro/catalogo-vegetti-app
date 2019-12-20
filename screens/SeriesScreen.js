@@ -29,12 +29,12 @@ class SeriesScreen extends React.Component {
   static navigationOptions = {
     title: 'Collane',
     headerStyle: {
-      backgroundColor: '#446fb5'
+      backgroundColor: '#446fb5',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-      fontWeight: 'bold'
-    }
+      fontWeight: 'bold',
+    },
   }
 
   constructor(props) {
@@ -43,7 +43,7 @@ class SeriesScreen extends React.Component {
       loading: true,
       editorUri: '',
       items: [],
-      allItems: []
+      allItems: [],
     }
   }
 
@@ -73,7 +73,7 @@ class SeriesScreen extends React.Component {
           uri: 'https:' + uri,
           img: $(this)
             .find('img')
-            .attr('src')
+            .attr('src'),
         }
       })
       this.setState({ editorUri, items, allItems: items, loading: false })
@@ -109,7 +109,7 @@ class SeriesScreen extends React.Component {
     const { navigate } = this.props.navigation
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>{editorTitle}</Text>
         {this.state.loading ? (
           <View style={styles.contentContainerStyle}>
@@ -133,7 +133,7 @@ class SeriesScreen extends React.Component {
             />
           </View>
         )}
-      </ScrollView>
+      </View>
     )
   }
 }
@@ -143,34 +143,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginBottom: 15,
-    marginTop: 10
+    marginTop: 10,
   },
   contentContainerStyle: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   item: {
     backgroundColor: '#d4e3fb',
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 5
+    borderRadius: 5,
   },
   title: {
     fontSize: 17,
     color: 'black',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   subtitle: {
     fontSize: 15,
     color: 'black',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   loading: {
     height: 150,
-    width: 150
-  }
+    width: 150,
+  },
 })
 
 export default SeriesScreen

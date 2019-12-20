@@ -35,12 +35,12 @@ class VolumesScreen extends React.Component {
   static navigationOptions = {
     title: 'Volumi',
     headerStyle: {
-      backgroundColor: '#446fb5'
+      backgroundColor: '#446fb5',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-      fontWeight: 'bold'
-    }
+      fontWeight: 'bold',
+    },
   }
 
   constructor(props) {
@@ -49,7 +49,7 @@ class VolumesScreen extends React.Component {
       loading: true,
       serieUri: '',
       items: [],
-      allItems: []
+      allItems: [],
     }
   }
 
@@ -87,7 +87,7 @@ class VolumesScreen extends React.Component {
               .attr('href'),
           img: $(this)
             .find('img')
-            .attr('src')
+            .attr('src'),
         }
       })
       this.setState({ serieUri, items, allItems: items, loading: false })
@@ -101,7 +101,7 @@ class VolumesScreen extends React.Component {
     if (text !== '') {
       let check = text.toLowerCase()
       items = this.state.allItems.filter(
-        item => item.title.toLowerCase().indexOf(check) !== -1 || item.author.toLowerCase().indexOf(check) !== -1
+        item => item.title.toLowerCase().indexOf(check) !== -1 || item.author.toLowerCase().indexOf(check) !== -1,
       )
     } else {
       items = this.state.allItems
@@ -126,7 +126,7 @@ class VolumesScreen extends React.Component {
     const { navigate } = this.props.navigation
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>{serieTitle !== '' ? serieTitle : '---'}</Text>
         {this.state.loading ? (
           <View style={styles.contentContainerStyle}>
@@ -147,7 +147,7 @@ class VolumesScreen extends React.Component {
             />
           </View>
         )}
-      </ScrollView>
+      </View>
     )
   }
 }
@@ -157,34 +157,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginBottom: 15,
-    marginTop: 10
+    marginTop: 10,
   },
   contentContainerStyle: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   item: {
     backgroundColor: '#d4e3fb',
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 5
+    borderRadius: 5,
   },
   title: {
     fontSize: 18,
     color: 'black',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   subtitle: {
     fontSize: 15,
     color: 'black',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   loading: {
     height: 150,
-    width: 150
-  }
+    width: 150,
+  },
 })
 
 export default VolumesScreen

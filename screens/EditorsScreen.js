@@ -20,19 +20,19 @@ class EditorsScreen extends React.Component {
   static navigationOptions = {
     title: 'Editori e collane',
     headerStyle: {
-      backgroundColor: '#446fb5'
+      backgroundColor: '#446fb5',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-      fontWeight: 'bold'
-    }
+      fontWeight: 'bold',
+    },
   }
 
   constructor(props) {
     super(props)
     this.state = {
       items: [],
-      loading: true
+      loading: true,
     }
   }
 
@@ -50,7 +50,7 @@ class EditorsScreen extends React.Component {
           'https:' +
           $(this)
             .find('a')
-            .attr('href')
+            .attr('href'),
       }
     })
     this.setState({ items, loading: false })
@@ -60,7 +60,7 @@ class EditorsScreen extends React.Component {
     const { navigate } = this.props.navigation
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         {this.state.loading ? (
           <View style={styles.contentContainerStyle}>
             <Image style={styles.loading} source={require('../assets/images/loading.gif')} />
@@ -77,7 +77,7 @@ class EditorsScreen extends React.Component {
             keyExtractor={item => item.id}
           />
         )}
-      </ScrollView>
+      </View>
     )
   }
 }
@@ -87,34 +87,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginBottom: 15,
-    marginTop: 10
+    marginTop: 10,
   },
   contentContainerStyle: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   item: {
     backgroundColor: '#9be8b5',
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 5
+    borderRadius: 5,
   },
   title: {
     fontSize: 17,
     color: 'black',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   subtitle: {
     fontSize: 15,
     color: 'black',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   loading: {
     height: 150,
-    width: 150
-  }
+    width: 150,
+  },
 })
 
 export default EditorsScreen
